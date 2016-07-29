@@ -1,0 +1,24 @@
+{
+  "extends": "defaults/configurations/google",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "rules": {
+    "max-len": [ 2, 200 ],
+    "indent": [
+      2,
+      "tab",
+      { "SwitchCase": 1 }
+    ],
+    "object-curly-spacing": [ 0, "always" ],
+    "arrow-parens": [ 2, "always" ],
+    "newline-after-var": [ 0 ],
+    "valid-jsdoc": [ 0 ],
+    "dot-location": [ 2, "property" ],
+    "no-invalid-this": [ 0 ],
+    "no-extra-parens":  [2, "functions"]
+  }
+}
