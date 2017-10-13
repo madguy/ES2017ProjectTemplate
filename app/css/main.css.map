@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,UACC,SACA,SAAW,CACX","file":"main.css","sourcesContent":["html, body {\n\tmargin: 0;\n\tpadding: 0;\n}\n"],"sourceRoot":"/source/"}
+{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,UACC,SACA,SAAU,CACV","file":"main.css","sourcesContent":["html, body {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n"]}

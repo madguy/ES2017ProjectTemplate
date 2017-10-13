@@ -1,4 +1,4 @@
-const webpack = require('webpack-stream');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 	webpack: {
@@ -7,30 +7,27 @@ module.exports = {
 			filename: '[name].min.js'
 		},
 		resolve: {
-			modulesDirectories: ['node_modules', 'app/js']
+			modules: ['node_modules', 'app/js']
 		},
-		devtool: '#source-map',
+		devtool: 'source-map',
 		module: {
-			loaders: [{
-				test: /\.js$/,
-				exclude: /(node_modules|bower_components)/,
-				loader: 'babel',
-				query: {
-					presets: ['es2015'],
-					plugins: ['transform-runtime', 'syntax-async-functions', 'transform-async-to-generator']
-				}
-			}]
+			rules: []
 		},
 		plugins: [
 			// minify
-			new webpack.webpack.optimize.UglifyJsPlugin()
+			new UglifyJsPlugin({
+				sourceMap: true,
+				uglifyOptions: {
+					ecma: 8
+				}
+			})
 		],
 		externals: {
-			jquery: 'jQuery',
 			moment: 'moment'
 		}
 	},
 	sass: {
+		includePaths: ['node_modules'],
 		outputStyle: 'compressed'
 	},
 	paths: {

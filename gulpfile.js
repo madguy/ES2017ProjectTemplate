@@ -1,6 +1,3 @@
-/* eslint no-console: 0, spaced-comment: 0, no-invalid-this: 0 */
-'use strict';
-
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const plumber = require('gulp-plumber');

@@ -1,13 +1,15 @@
 {
   "extends": "defaults/configurations/google",
-  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true
   },
   "rules": {
-    "max-len": [ 2, 200 ],
+    "max-len": [ 2, 400 ],
     "indent": [
       2,
       "tab",
@@ -19,6 +21,11 @@
     "valid-jsdoc": [ 0 ],
     "dot-location": [ 2, "property" ],
     "no-invalid-this": [ 0 ],
-    "no-extra-parens":  [2, "functions"]
+    "no-extra-parens":  [2, "functions"],
+    "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+    }]
   }
 }

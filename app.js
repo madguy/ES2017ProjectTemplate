@@ -1,24 +1,22 @@
-'use strict';
-
 const path = require('path');
-const koa = require('koa');
-const router = require('koa-router')();
-const serve = require('koa-static');
-const views = require('co-views');
+const Koa = require('koa');
+const koaRoute = require('koa-router');
+const koaStatic = require('koa-static');
+const koaViews = require('koa-views');
 
 const appDir = path.dirname(require.main.filename);
-const render = views(path.join(appDir, 'app'), {map: {html: 'ejs'}});
 
-const app = koa();
+const app = new Koa();
+const router = koaRoute();
 
-router.get('/', function *() {
-	this.body = yield render('index.html');
+router.get('/',  async (ctx) => {
+	await ctx.render('index');
 });
 
 app
+	.use(koaViews(`${appDir}/views`, {map: {html: 'ejs'}}))
+	.use(koaStatic(`${appDir}/app`))
 	.use(router.routes())
 	.use(router.allowedMethods());
-
-app.use(serve(`${__dirname}/app`));
 
 app.listen(3000);
