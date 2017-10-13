@@ -30,14 +30,17 @@ module.exports = {
 		includePaths: ['node_modules'],
 		outputStyle: 'compressed'
 	},
+	postcss: {
+		browsers: ['last 2 versions']
+	},
 	paths: {
-		src: {
-			js: './app/js',
-			css: './app/scss'
+		js: {
+			src: './app/js',
+			dist: './app/js'
 		},
-		dist: {
-			js: './app/js',
-			css: './app/css'
+		css: {
+			src: './app/scss',
+			dist: './app/css'
 		}
 	}
 };
