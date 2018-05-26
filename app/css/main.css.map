@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAAA,UACC,SACA,SAAU,CACV","file":"main.css","sourcesContent":["html, body {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n"]}
+{"version":3,"sources":["webpack:///./app/scss/main.scss"],"names":[],"mappings":"AAAA,UAAU,SAAS,SAAS,CAAC","file":"main.css","sourcesContent":["html,body{margin:0;padding:0}\n"],"sourceRoot":""}

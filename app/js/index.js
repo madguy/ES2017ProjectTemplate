@@ -1,6 +1,9 @@
 'use strict';
 
+import Vue from 'vue';
+
 import {wait} from 'modules/module_sample';
+import SampleComponent from 'components/sample.vue';
 
 // async promise nomally
 wait(100).then(() => console.log('promise normaly done'));
@@ -13,5 +16,10 @@ async function main() {
 	console.log(`await done ${Date.now()}`);
 }
 
-// await
-main();
+new Vue({
+	el: 'main',
+	components: {SampleComponent},
+	async created() {
+		await main();
+	}
+});

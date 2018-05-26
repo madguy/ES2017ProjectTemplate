@@ -1,7 +1,8 @@
 {
-  "extends": "defaults/configurations/google",
+  "extends": "google",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+    "sourceType": "module"
   },
   "env": {
     "browser": true,
@@ -18,14 +19,19 @@
     "object-curly-spacing": [ 0, "always" ],
     "arrow-parens": [ 2, "always" ],
     "newline-after-var": [ 0 ],
+    "require-jsdoc": "off",
     "valid-jsdoc": [ 0 ],
     "dot-location": [ 2, "property" ],
     "no-invalid-this": [ 0 ],
     "no-extra-parens":  [2, "functions"],
+    "guard-for-in": "off",
     "space-before-function-paren": ["error", {
-        "anonymous": "always",
+        "anonymous": "never",
         "named": "never",
         "asyncArrow": "always"
-    }]
+    }],
+    "no-tabs": "off",
+    "linebreak-style": "off",
+    "comma-dangle": "off"
   }
 }

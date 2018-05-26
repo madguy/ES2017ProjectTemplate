@@ -1,15 +1,19 @@
+/* global process:true */
 const gulp = require('gulp');
-const gutil = require('gulp-util');
+const gulpIgnore = require('gulp-ignore');
 const plumber = require('gulp-plumber');
-const webpack = require('webpack-stream');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
 const named = require('vinyl-named');
-const sass = require('gulp-sass');
-const postcss = require('gulp-postcss');
-const cssnext = require('postcss-cssnext');
-const sourcemaps = require('gulp-sourcemaps');
 const sequence = require('run-sequence');
 const del = require('del');
 const config = require('./gulp.config');
+
+const env = {
+	get mode() {
+		return /^prod/.test(process.env.NODE_ENV) ? 'production' : 'development';
+	}
+};
 
 gulp.task('clean:js', (next) => {
 	del([`${config.paths.js.dist}/**/*.min.js`, `${config.paths.js.dist}/**/*.map`], next);
@@ -25,22 +29,16 @@ gulp.task('compile:js', () => {
 	return gulp.src([`${config.paths.js.src}/*.js`, `!${config.paths.js.src}/**/*.min.js`])
 		.pipe(plumber())
 		.pipe(named())
-		.pipe(webpack(config.webpack))
+		.pipe(webpackStream(config.webpack.script(env.mode), webpack))
 		.pipe(gulp.dest(config.paths.js.dist));
 });
 
 gulp.task('compile:css', () => {
 	return gulp.src(`${config.paths.css.src}/**/*.{scss, sass}`)
 		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(sass(config.sass)).on('error', function (err) {
-			gutil.log(err);
-			this.emit('end');
-		})
-		.pipe(postcss([
-			cssnext({ browsers: config.postcss.browsers })
-		]))
-		.pipe(sourcemaps.write('.'))
+		.pipe(named())
+		.pipe(webpackStream(config.webpack.style(env.mode), webpack))
+		.pipe(gulpIgnore.include(['*.css', '*.css.map']))
 		.pipe(gulp.dest(config.paths.css.dist));
 });
 

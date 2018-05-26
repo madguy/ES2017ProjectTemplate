@@ -1,37 +1,115 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const LicenseInfoWebpackPlugin = require('license-info-webpack-plugin').default;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
 	webpack: {
-		cache: true,
-		output: {
-			filename: '[name].min.js'
+		script: (mode = 'development') => {
+			let isProduction = mode === 'production';
+
+			let plugins = [
+				new VueLoaderPlugin(),
+			];
+			if (isProduction) {
+				plugins.push(new LicenseInfoWebpackPlugin({
+					glob: '{LICENSE,license,License}*'
+				}));
+			}
+
+			return {
+				mode: mode,
+				cache: true,
+				output: {
+					filename: '[name].min.js',
+				},
+				devtool: isProduction ? false : '#source-map',
+				resolve: {
+					modules: ['node_modules', 'app/js'],
+					alias: {
+						vue: 'vue/dist/vue.esm.js'
+					},
+				},
+				module: {
+					rules: [{
+						test: /\.js$/,
+						exclude: /(node_modules|bower_components)/,
+						use: ['cache-loader'],
+					}, {
+						test: /\.vue$/,
+						use: [
+							'cache-loader',
+							'vue-loader',
+						],
+					}, {
+						test: /\.scss$/,
+						use: [
+							'vue-style-loader',
+							'css-loader',
+							{
+								loader: 'postcss-loader',
+								options: {
+									browsers: ['last 2 versions'],
+								},
+							},
+							{
+								loader: 'sass-loader',
+								options: {
+									includePaths: ['node_modules'],
+									outputStyle: 'compressed',
+								}
+							},
+						]
+					}],
+				},
+				plugins: plugins,
+			};
 		},
-		resolve: {
-			modules: ['node_modules', 'app/js']
+		style: (mode = 'development') => {
+			let isProduction = mode === 'production';
+			let isUseSourceMap = isProduction === false;
+
+			return {
+				mode: mode,
+				cache: true,
+				output: {
+					filename: '[contenthash]',
+				},
+				devtool: isUseSourceMap ? '#source-map' : false,
+				module: {
+					rules: [{
+						test: /\.(sass|scss)$/,
+						use: [
+							MiniCssExtractPlugin.loader,
+							{
+								loader: 'css-loader',
+								options: {
+									sourceMap: isUseSourceMap,
+								}
+							},
+							{
+								loader: 'postcss-loader',
+								options: {
+									browsers: ['last 2 versions'],
+								},
+							},
+							{
+								loader: 'sass-loader',
+								options: {
+									sourceMap: isUseSourceMap,
+									includePaths: ['node_modules'],
+									outputStyle: 'compressed',
+								}
+							},
+						],
+					}],
+				},
+				plugins: [
+					new MiniCssExtractPlugin({
+						filename: '[name].css',
+					}),
+				],
+			};
 		},
-		devtool: 'source-map',
-		module: {
-			rules: []
-		},
-		plugins: [
-			// minify
-			new UglifyJsPlugin({
-				sourceMap: true,
-				uglifyOptions: {
-					ecma: 8
-				}
-			})
-		],
-		externals: {
-			moment: 'moment'
-		}
-	},
-	sass: {
-		includePaths: ['node_modules'],
-		outputStyle: 'compressed'
-	},
-	postcss: {
-		browsers: ['last 2 versions']
 	},
 	paths: {
 		js: {
