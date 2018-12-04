@@ -1,7 +1,7 @@
 {
   "name": "es2017-template",
   "license": "MIT",
-  "version": "2018.05.25",
+  "version": "2018.12.04",
   "private": true,
   "engines": {
     "node": ">= 8.9.0"
@@ -12,34 +12,38 @@
     "watch": "gulp watch"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.8",
+    "@fortawesome/free-solid-svg-icons": "5.5.0",
+    "@fortawesome/vue-fontawesome": "0.1.2",
     "ejs": "2.6.1",
-    "koa": "2.5.1",
+    "koa": "2.6.2",
     "koa-router": "7.4.0",
-    "koa-static": "4.0.3",
+    "koa-static": "5.0.0",
     "koa-views": "6.1.4",
-    "moment": "2.22.1",
-    "vue": "2.5.16"
+    "moment": "2.22.2",
+    "vue": "2.5.17"
   },
   "devDependencies": {
-    "cache-loader": "1.2.2",
-    "css-loader": "0.28.11",
+    "cache-loader": "1.2.5",
+    "css-loader": "1.0.1",
     "del": "3.0.0",
-    "eslint": "4.19.1",
-    "eslint-config-google": "0.9.1",
+    "eslint": "5.9.0",
+    "eslint-config-google": "0.11.0",
+    "fast-sass-loader": "1.4.7",
+    "file-loader": "2.0.0",
     "gulp": "3.9.1",
     "gulp-ignore": "2.0.2",
-    "gulp-plumber": "1.2.0",
-    "license-info-webpack-plugin": "1.0.1",
-    "mini-css-extract-plugin": "0.4.0",
-    "node-sass": "4.9.0",
-    "postcss-loader": "2.1.5",
+    "gulp-plumber": "1.2.1",
+    "license-info-webpack-plugin": "1.1.0",
+    "mini-css-extract-plugin": "0.4.5",
+    "node-sass": "4.10.0",
+    "postcss-loader": "3.0.0",
     "run-sequence": "2.2.1",
-    "sass-loader": "7.0.1",
     "vinyl-named": "1.1.0",
-    "vue-loader": "15.2.1",
-    "vue-style-loader": "4.1.0",
-    "vue-template-compiler": "2.5.16",
-    "webpack": "4.9.1",
-    "webpack-stream": "4.0.3"
+    "vue-loader": "15.4.2",
+    "vue-style-loader": "4.1.2",
+    "vue-template-compiler": "2.5.17",
+    "webpack": "4.26.1",
+    "webpack-stream": "5.2.1"
   }
 }

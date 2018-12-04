@@ -5,14 +5,14 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
 	webpack: {
 		script: (mode = 'development') => {
-			let isProduction = mode === 'production';
+			const isProduction = mode === 'production';
 
-			let plugins = [
+			const plugins = [
 				new VueLoaderPlugin(),
 			];
 			if (isProduction) {
 				plugins.push(new LicenseInfoWebpackPlugin({
-					glob: '{LICENSE,license,License}*'
+					glob: '{LICENSE,license,License}*',
 				}));
 			}
 
@@ -26,7 +26,7 @@ module.exports = {
 				resolve: {
 					modules: ['node_modules', 'app/js'],
 					alias: {
-						vue: 'vue/dist/vue.esm.js'
+						vue: 'vue/dist/vue.esm.js',
 					},
 				},
 				module: {
@@ -50,23 +50,34 @@ module.exports = {
 								options: {
 									browsers: ['last 2 versions'],
 								},
-							},
-							{
-								loader: 'sass-loader',
+							}, {
+								loader: 'fast-sass-loader',
 								options: {
 									includePaths: ['node_modules'],
 									outputStyle: 'compressed',
-								}
+								},
 							},
-						]
+						],
+					}, {
+						test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+						use: [{
+							loader: 'url-loader',
+							options: {
+								limit: 10000,
+								mimetype: 'application/font-woff',
+							},
+						}],
+					}, {
+						test: /\.(ttf|eot|svg|jpe?g|png|gif|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+						use: ['file-loader'],
 					}],
 				},
 				plugins: plugins,
 			};
 		},
 		style: (mode = 'development') => {
-			let isProduction = mode === 'production';
-			let isUseSourceMap = isProduction === false;
+			const isProduction = mode === 'production';
+			const isUseSourceMap = isProduction === false;
 
 			return {
 				mode: mode,
@@ -84,7 +95,7 @@ module.exports = {
 								loader: 'css-loader',
 								options: {
 									sourceMap: isUseSourceMap,
-								}
+								},
 							},
 							{
 								loader: 'postcss-loader',
@@ -93,14 +104,26 @@ module.exports = {
 								},
 							},
 							{
-								loader: 'sass-loader',
+								loader: 'fast-sass-loader',
 								options: {
 									sourceMap: isUseSourceMap,
 									includePaths: ['node_modules'],
 									outputStyle: 'compressed',
-								}
+								},
 							},
 						],
+					}, {
+						test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+						use: [{
+							loader: 'url-loader',
+							options: {
+								limit: 10000,
+								mimetype: 'application/font-woff',
+							},
+						}],
+					}, {
+						test: /\.(ttf|eot|svg|jpe?g|png|gif|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+						use: ['file-loader'],
 					}],
 				},
 				plugins: [
@@ -114,11 +137,11 @@ module.exports = {
 	paths: {
 		js: {
 			src: './app/js',
-			dist: './app/js'
+			dist: './app/js',
 		},
 		css: {
 			src: './app/scss',
-			dist: './app/css'
-		}
-	}
+			dist: './app/css',
+		},
+	},
 };
