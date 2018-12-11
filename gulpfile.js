@@ -52,6 +52,6 @@ gulp.task('watch:css', gulp.series('compile:css', () => {
 }));
 
 gulp.task('watch', gulp.series('build', () => {
-	gulp.watch([`${config.paths.js.src}/**/*.js`, `!${config.paths.js.src}/**/*.min.js`], gulp.task('compile:js'));
+	gulp.watch([`${config.paths.js.src}/**/*.js`, `${config.paths.js.src}/**/*.vue`, `!${config.paths.js.src}/**/*.min.js`], gulp.task('compile:js'));
 	gulp.watch(`${config.paths.css.src}/**/*.{scss, sass}`, gulp.task('compile:css'));
 }));
