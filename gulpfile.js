@@ -33,7 +33,7 @@ gulp.task('compile:js', () => {
 });
 
 gulp.task('compile:css', () => {
-	return gulp.src(`${config.paths.css.src}/**/*.{scss, sass}`)
+	return gulp.src([`${config.paths.css.src}/**/*.{scss, sass}`, `!${config.paths.css.src}/**/_*.{scss, sass}`])
 		.pipe(plumber())
 		.pipe(named())
 		.pipe(webpackStream(config.webpack.style(env.mode), webpack))
